@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -12,16 +13,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
 public class NgspringstoreApplication {
+	
+	final static Logger logger = Logger.getLogger(NgspringstoreApplication.class);
 
 	@RequestMapping("/resource")
 	public Map<String, Object> home() {
@@ -33,6 +33,7 @@ public class NgspringstoreApplication {
 
 	@RequestMapping("/login")
 	public Principal login(Principal user) {
+		logger.info("User " + user.getName() + " has logged in to the application.");
 		return user;
 	}
 
