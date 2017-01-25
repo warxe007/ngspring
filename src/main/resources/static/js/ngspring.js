@@ -7,5 +7,6 @@ angular.
 		'layout', 
 		'products', 
 		'home', 
-		'navigation'
+		'navigation',
+		'users'
 		]);

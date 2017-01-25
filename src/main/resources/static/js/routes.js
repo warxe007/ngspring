@@ -12,16 +12,6 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
             return "home";
         }
     });
-    $urlRouterProvider.otherwise(function ($injector, $location) {
-        var path = $location.path();
-             /*if (path !== "" && path !== "/") {
-                 $injector.invoke(['$state', function ($state) {
-                     $state.get('error').error = {status: '404'};
-                     $state.go('error', {});
-                 }]);
-                 return "error";
-             }*/
-    });
     $stateProvider
         .state('app', {
             abstract:true,
@@ -71,7 +61,23 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
                     controllerAs: 'MC'
                 }
             }
-        });/*
+        })
+        .state('app.users', {
+            url: 'manage-users',
+            resolve: {
+                /*productResult : function (productService) {
+                    return productService.getProducts();
+                }*/
+            },
+            views: {
+                'content@': {
+                    templateUrl: '/js/users/users.html',
+                    controller: 'UsersController',
+                    controllerAs: 'UL'
+                }
+            }
+        });
+        /*
         .state('app.productList', {
             url: 'manage-products',
             resolve: {
