@@ -1,7 +1,7 @@
 package com.ngspring.controller;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,81 +29,76 @@ public class UserController {
 		model.put("authorities", auth.getAuthorities());
 		return model;
 	}
-	
+
 	/**
-	   * GET /create  --> Create a new user and save it in the database.
-	   */
-	  @RequestMapping("/create")
-	  @ResponseBody
-	  public String create(String email, String firstName, String lastName) {
-	    String userId = "";
-	    try {
-	      User user = new User(email, firstName, lastName);
-	      userDao.save(user);
-	      userId = String.valueOf(user.getId());
-	    }
-	    catch (Exception ex) {
-	      return "Error creating the user: " + ex.toString();
-	    }
-	    return "User succesfully created with id = " + userId;
-	  }
-	  
-	  /**
-	   * GET /delete  --> Delete the user having the passed id.
-	   */
-	  @RequestMapping("/delete")
-	  @ResponseBody
-	  public String delete(long id) {
-	    try {
-	      User user = new User(id);
-	      userDao.delete(user);
-	    }
-	    catch (Exception ex) {
-	      return "Error deleting the user:" + ex.toString();
-	    }
-	    return "User succesfully deleted!";
-	  }
-	  
-	  /**
-	   * GET /get-by-email  --> Return the id for the user having the passed
-	   * email.
-	   */
-	  @RequestMapping("/get-by-email")
-	  @ResponseBody
-	  public String getByEmail(String email) {
-	    String userId = "";
-	    try {
-	      User user = userDao.findByEmail(email);
-	      userId = String.valueOf(user.getId());
-	    }
-	    catch (Exception ex) {
-	      return "User not found";
-	    }
-	    return "The user id is: " + userId;
-	  }
-	  
-	  /**
-	   * GET /update  --> Update the email and the name for the user in the 
-	   * database having the passed id.
-	   */
-	  @RequestMapping("/update")
-	  @ResponseBody
-	  public String updateUser(long id, String email, String firstName, String lastName) {
-	    try {
-	      User user = userDao.findOne(id);
-	      user.setEmail(email);
-	      user.setFirstName(firstName);
-	      user.setLastName(lastName);
-	      userDao.save(user);
-	    }
-	    catch (Exception ex) {
-	      return "Error updating the user: " + ex.toString();
-	    }
-	    return "User succesfully updated!";
-	  }
+	 * GET /create --> Create a new user and save it in the database.
+	 */
+	@RequestMapping(value = "/create", method = POST)
+	@ResponseBody
+	public String create(User user) {
+		System.out.println("*********** hello ************");
+		String userId = "";
+		try {
+			userDao.save(user);
+			userId = String.valueOf(user.getId());
+		} catch (Exception ex) {
+			return "Error creating the user: " + ex.toString();
+		}
+		return "User succesfully created with id = " + userId;
+	}
 
-	  // Private fields
+	/**
+	 * GET /delete --> Delete the user having the passed id.
+	 */
+	@RequestMapping("/delete")
+	@ResponseBody
+	public String delete(long id) {
+		try {
+			User user = new User(id);
+			userDao.delete(user);
+		} catch (Exception ex) {
+			return "Error deleting the user:" + ex.toString();
+		}
+		return "User succesfully deleted!";
+	}
 
-	  @Autowired
-	  private UserDao userDao;	
+	/**
+	 * GET /get-by-email --> Return the id for the user having the passed email.
+	 */
+	@RequestMapping("/get-by-email")
+	@ResponseBody
+	public String getByEmail(String email) {
+		String userId = "";
+		try {
+			User user = userDao.findByEmail(email);
+			userId = String.valueOf(user.getId());
+		} catch (Exception ex) {
+			return "User not found";
+		}
+		return "The user id is: " + userId;
+	}
+
+	/**
+	 * GET /update --> Update the email and the name for the user in the
+	 * database having the passed id.
+	 */
+	@RequestMapping("/update")
+	@ResponseBody
+	public String updateUser(long id, String email, String firstName, String lastName) {
+		try {
+			User user = userDao.findOne(id);
+			user.setEmail(email);
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
+			userDao.save(user);
+		} catch (Exception ex) {
+			return "Error updating the user: " + ex.toString();
+		}
+		return "User succesfully updated!";
+	}
+
+	// Private fields
+
+	@Autowired
+	private UserDao userDao;
 }

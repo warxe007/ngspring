@@ -73,7 +73,7 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
                 'content@': {
                     templateUrl: '/js/users/users.html',
                     controller: 'UsersController',
-                    controllerAs: 'UL'
+                    controllerAs: 'UC'
                 }
             }
         });
