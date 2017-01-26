@@ -1,7 +1,7 @@
 angular.module('auth')
 	.factory('loginService', loginService);
 
-function loginService($http, $q, $cacheFactory) {
+function loginService($http, $q, $cacheFactory, $state) {
 	
 	var loginCache = $cacheFactory('login'), factory = {
 		login : login,

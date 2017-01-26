@@ -26,7 +26,7 @@ function HeaderController(loginService, $state, loggedUser) {
 	
 	function logout() {
 		loginService.logout().then(function(success){
-			$state.reload();
+        	$state.go('app.home', {}, {reload: true});
 		})
 		.catch(function(error) {
 			console.log(error);
