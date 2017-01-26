@@ -1,11 +1,18 @@
 package com.ngspring.model;
 
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.persistence.GenerationType;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 @Table(name="users")
@@ -23,6 +30,20 @@ public class User {
 	
 	@NotNull
 	private String lastName;
+	
+	@NotNull
+	private boolean enabled;
+	
+	@NotNull
+	private String password;
+	
+	@Column(name = "createDate", columnDefinition="DATETIME")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createDate;
+	
+	@Column(name = "updateDate", columnDefinition="DATETIME")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updateDate;
 	
 	public User() {	}
 	
@@ -66,5 +87,39 @@ public class User {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(password);
+		this.password = hashedPassword;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 }

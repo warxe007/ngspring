@@ -65,9 +65,9 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
         .state('app.users', {
             url: 'manage-users',
             resolve: {
-                /*productResult : function (productService) {
-                    return productService.getProducts();
-                }*/
+                users : function (usersService) {
+                    return usersService.getAllUsers();
+                }
             },
             views: {
                 'content@': {

@@ -1,9 +1,13 @@
 package com.ngspring.controller;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,22 +33,36 @@ public class UserController {
 		model.put("authorities", auth.getAuthorities());
 		return model;
 	}
+	
+	/**
+	 * GET /get-by-email --> Return the id for the user having the passed email.
+	 */
+	@RequestMapping("/get-all")
+	@ResponseBody
+	public List<User> getAll() {
+		List<User> users = new ArrayList<User>(); 
+		try {
+			users = (ArrayList<User>) userDao.findAll();
+		} catch (Exception ex) {
+			return null;
+		}
+		return users;
+	}
 
 	/**
 	 * GET /create --> Create a new user and save it in the database.
 	 */
-	@RequestMapping(value = "/create", method = POST)
+	@RequestMapping(value="/create", method = POST)
 	@ResponseBody
 	public String create(User user) {
-		System.out.println("*********** hello ************");
-		String userId = "";
 		try {
+			user.setCreateDate(new Date(System.currentTimeMillis()));
+			user.setUpdateDate(new Date(System.currentTimeMillis()));
 			userDao.save(user);
-			userId = String.valueOf(user.getId());
 		} catch (Exception ex) {
 			return "Error creating the user: " + ex.toString();
 		}
-		return "User succesfully created with id = " + userId;
+		return "{\"message\":\"User successfully created!\"}";
 	}
 
 	/**
