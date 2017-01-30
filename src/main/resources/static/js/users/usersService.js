@@ -12,10 +12,12 @@ function usersService($http, $q) {
 		var deferred = $q.defer();
 
 		var user = {
-			email : row.username,
-			firstName : row.firstname,
-			lastName : row.lastname,
+			email : row.email,
+			firstName : row.firstName,
+			lastName : row.lastName,
 			password : row.password,
+			address: row.address,
+			telephone: row.telephone,
 			enabled : true
 		};
 

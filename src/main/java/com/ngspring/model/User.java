@@ -37,6 +37,10 @@ public class User {
 	@NotNull
 	private String password;
 	
+	private String address;
+	
+	private String telephone; 
+	
 	@Column(name = "createDate", columnDefinition="DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
@@ -121,5 +125,21 @@ public class User {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 }
