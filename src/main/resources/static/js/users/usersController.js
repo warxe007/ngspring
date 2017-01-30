@@ -10,7 +10,7 @@ function UsersController($scope, users, usersService, storeConstants) {
 	vm.gridOptions.rowData = users;
 	
 	function addNewRow() {
-		vm.gridOptions.api.insertItemsAtIndex(0, [ {} ]);
+		vm.gridOptions.api.insertItemsAtIndex(0, [ {newRow: true} ]);
 		vm.gridOptions.api.setFocusedCell(0, 'email');
 		vm.gridOptions.api.startEditingCell({
 			rowIndex : 0,

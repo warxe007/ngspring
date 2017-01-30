@@ -40,7 +40,7 @@ var constant = {
 
 function buttonCellRendererFunc(params) {
 
-	return '<button ng-click="UC.cancelUserCreate(this.rowNode)" class="btn btn-default"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button><button ng-click="UC.createUser(data)" class="btn btn-default"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button>';
+	return '<button ng-if="data.newRow" ng-click="UC.cancelUserCreate(this.rowNode)" class="btn btn-default" style="float: right"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button><button ng-if="data.newRow" ng-click="UC.createUser(data)" class="btn btn-default"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button></button><button ng-if="!data.newRow" ng-click="UC.editUser(this.rowNode)" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>';
 }
 
 angular.module('users').constant('storeConstants', constant);
