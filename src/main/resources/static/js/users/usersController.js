@@ -6,7 +6,8 @@ function UsersController($scope, users, usersService, storeConstants) {
 	vm.addNewRow = addNewRow,	
 	vm.createUser = createUser,
 	vm.cancelUserCreate = cancelUserCreate,
-	vm.gridOptions = storeConstants.gridOptions
+	vm.editUser = editUser,
+	vm.gridOptions = storeConstants.gridOptions,
 	vm.gridOptions.rowData = users;
 	
 	function addNewRow() {
@@ -22,7 +23,14 @@ function UsersController($scope, users, usersService, storeConstants) {
 		usersService.saveNewUser(row).then(function(success) {
 			console.log(success.message);
 		}, function(error) {
-			console.log("error: ");
+			console.log(error);
+		});
+	}
+	
+	function editUser(row) {
+		usersService.updateUser(row).then(function(success) {
+			console.log(success.message);
+		}, function (error) {
 			console.log(error);
 		});
 	}

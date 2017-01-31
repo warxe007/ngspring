@@ -41,6 +41,8 @@ public class User {
 	
 	private String telephone; 
 	
+	private String gender;
+
 	@Column(name = "createDate", columnDefinition="DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
@@ -141,5 +143,13 @@ public class User {
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+	
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 }

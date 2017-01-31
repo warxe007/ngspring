@@ -3,6 +3,7 @@ package com.ngspring.controller;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -100,19 +101,21 @@ public class UserController {
 	 * GET /update --> Update the email and the name for the user in the
 	 * database having the passed id.
 	 */
-	@RequestMapping("/update")
+	@RequestMapping(value = "/update", method = PUT)
 	@ResponseBody
-	public String updateUser(long id, String email, String firstName, String lastName) {
+	public String updateUser(User user) {
 		try {
-			User user = userDao.findOne(id);
-			user.setEmail(email);
-			user.setFirstName(firstName);
-			user.setLastName(lastName);
-			userDao.save(user);
+			User userToFind = userDao.findByEmail(user.getEmail());
+			if(userToFind != null) {
+				userToFind.setUpdateDate(new Date(System.currentTimeMillis()));
+				userToFind.setFirstName(user.getFirstName());
+				userToFind.setLastName(user.getLastName());
+				userDao.save(userToFind);
+			}
 		} catch (Exception ex) {
 			return "Error updating the user: " + ex.toString();
 		}
-		return "User succesfully updated!";
+		return "{\"message\":\"User successfully updated!\"}";
 	}
 
 	// Private fields
