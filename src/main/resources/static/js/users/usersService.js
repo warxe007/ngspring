@@ -16,7 +16,7 @@ function usersService($http, $q) {
 			method : 'GET',
 			url : '/get-all',
 			headers : {
-				'Content-Type' : undefined
+				'Content-Type' : 'application/json'
 			}
 		};
 

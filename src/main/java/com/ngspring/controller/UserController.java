@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ngspring.dao.UserDao;
-import com.ngspring.model.User;
+import com.ngspring.model.StoreUser;
 
 @Controller
 public class UserController {
@@ -39,15 +39,16 @@ public class UserController {
 	 * GET /get-by-email --> Return the id for the user having the passed email.
 	 */
 	@RequestMapping("/get-all")
-	@ResponseBody
-	public List<User> getAll() {
-		List<User> users = new ArrayList<User>(); 
+	public @ResponseBody Map<String, Object> getAll() {
+		List<StoreUser> users = new ArrayList<StoreUser>(); 
+		Map<String, Object> model = new HashMap<String, Object>();
 		try {
-			users = (ArrayList<User>) userDao.findAll();
+			users = (ArrayList<StoreUser>) userDao.findAll();
+			model.put("users", users);
 		} catch (Exception ex) {
 			return null;
 		}
-		return users;
+		return model;
 	}
 
 	/**
@@ -55,7 +56,7 @@ public class UserController {
 	 */
 	@RequestMapping(value="/create", method = POST)
 	@ResponseBody
-	public String create(User user) {
+	public String create(StoreUser user) {
 		try {
 			user.setCreateDate(new Date(System.currentTimeMillis()));
 			user.setUpdateDate(new Date(System.currentTimeMillis()));
@@ -73,7 +74,7 @@ public class UserController {
 	@ResponseBody
 	public String delete(long id) {
 		try {
-			User user = new User(id);
+			StoreUser user = new StoreUser(id);
 			userDao.delete(user);
 		} catch (Exception ex) {
 			return "Error deleting the user:" + ex.toString();
@@ -89,7 +90,7 @@ public class UserController {
 	public String getByEmail(String email) {
 		String userId = "";
 		try {
-			User user = userDao.findByEmail(email);
+			StoreUser user = userDao.findByEmail(email);
 			userId = String.valueOf(user.getId());
 		} catch (Exception ex) {
 			return "User not found";
@@ -103,9 +104,9 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/update", method = PUT)
 	@ResponseBody
-	public String updateUser(User user) {
+	public String updateUser(StoreUser user) {
 		try {
-			User userToFind = userDao.findByEmail(user.getEmail());
+			StoreUser userToFind = userDao.findByEmail(user.getEmail());
 			if(userToFind != null) {
 				userToFind.setUpdateDate(new Date(System.currentTimeMillis()));
 				userToFind.setFirstName(user.getFirstName());

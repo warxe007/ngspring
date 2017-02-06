@@ -1,12 +1,18 @@
 package com.ngspring.model;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -14,9 +20,11 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name="users")
-public class User {
+@Table(name="user")
+public class StoreUser {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,6 +50,10 @@ public class User {
 	private String telephone; 
 	
 	private String gender;
+	
+	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinTable(joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<StoreRole> roles;
 
 	@Column(name = "createDate", columnDefinition="DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -51,13 +63,13 @@ public class User {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateDate;
 	
-	public User() {	}
+	public StoreUser() {	}
 	
-	public User(long id) {
+	public StoreUser(long id) {
 		this.id = id;
 	}
 	
-	public User(String email, String firstName, String lastName) {
+	public StoreUser(String email, String firstName, String lastName) {
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -151,5 +163,13 @@ public class User {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public Set<StoreRole> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<StoreRole> roles) {
+		this.roles = roles;
 	}
 }
