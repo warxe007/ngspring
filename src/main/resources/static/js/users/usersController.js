@@ -2,6 +2,8 @@ angular.module('users').controller('UsersController', UsersController);
 
 function UsersController($scope, users, usersService, storeConstants) {
 	var vm = this;
+	
+	processUserRole(users);
 
 	vm.addNewRow = addNewRow,	
 	vm.createUser = createUser,
@@ -37,5 +39,13 @@ function UsersController($scope, users, usersService, storeConstants) {
 
 	function cancelUserCreate(node) {
 		vm.gridOptions.api.removeItems([ node ]);
+	}
+	
+	function processUserRole(users) {
+		angular.forEach(users, function(currentUser) {
+			if(currentUser.roles.length > 0) {
+				currentUser.role = currentUser.roles[0].role;
+			}
+		});
 	}
 }

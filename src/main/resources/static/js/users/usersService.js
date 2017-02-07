@@ -21,7 +21,7 @@ function usersService($http, $q) {
 		};
 
 		$http(req).success(function(data) {
-			deferred.resolve(data);
+			deferred.resolve(data.users);
 		}).error(function(data) {
 			deferred.reject(data);
 		});
@@ -31,9 +31,9 @@ function usersService($http, $q) {
 
 	function saveNewUser(row) {
 		var deferred = $q.defer();
-
+		
 		row.enabled = true;
-
+		
 		var req = {
 			method : 'POST',
 			url : '/create',
@@ -56,11 +56,15 @@ function usersService($http, $q) {
 		var deferred = $q.defer();
 		
 		row = {
-				email : row.email,
-				firstName : row.firstName,
+				firstName: row.firstName,
 				lastName: row.lastName,
-				password: row.password
-		};
+				email: row.email,
+				role: row.role,
+				address: row.address,
+				telephone: row.telephone,
+				gender: row.gender,
+				enabled: row.enabled
+		}
 
 		var req = {
 			method : 'PUT',

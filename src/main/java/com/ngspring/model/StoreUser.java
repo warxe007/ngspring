@@ -16,11 +16,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="user")
@@ -45,6 +44,9 @@ public class StoreUser {
 	@NotNull
 	private String password;
 	
+	@Transient
+	private String role;
+	
 	private String address;
 	
 	private String telephone; 
@@ -53,6 +55,7 @@ public class StoreUser {
 	
 	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JsonManagedReference
     private Set<StoreRole> roles;
 
 	@Column(name = "createDate", columnDefinition="DATETIME")
@@ -120,9 +123,7 @@ public class StoreUser {
 	}
 
 	public void setPassword(String password) {
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String hashedPassword = passwordEncoder.encode(password);
-		this.password = hashedPassword;
+		this.password = password;
 	}
 
 	public Date getCreateDate() {
@@ -171,5 +172,13 @@ public class StoreUser {
 
 	public void setRoles(Set<StoreRole> roles) {
 		this.roles = roles;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 }

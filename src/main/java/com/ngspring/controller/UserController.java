@@ -8,8 +8,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,8 +20,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ngspring.dao.RoleDao;
 import com.ngspring.dao.UserDao;
+import com.ngspring.model.StoreRole;
 import com.ngspring.model.StoreUser;
+import com.ngspring.service.StoreUserService;
 
 @Controller
 public class UserController {
@@ -43,7 +48,7 @@ public class UserController {
 		List<StoreUser> users = new ArrayList<StoreUser>(); 
 		Map<String, Object> model = new HashMap<String, Object>();
 		try {
-			users = (ArrayList<StoreUser>) userDao.findAll();
+			users = userService.findAll();
 			model.put("users", users);
 		} catch (Exception ex) {
 			return null;
@@ -58,18 +63,16 @@ public class UserController {
 	@ResponseBody
 	public String create(StoreUser user) {
 		try {
-			user.setCreateDate(new Date(System.currentTimeMillis()));
-			user.setUpdateDate(new Date(System.currentTimeMillis()));
-			userDao.save(user);
+			userService.saveUser(user);
 		} catch (Exception ex) {
 			return "Error creating the user: " + ex.toString();
 		}
 		return "{\"message\":\"User successfully created!\"}";
 	}
 
-	/**
+/*	*//**
 	 * GET /delete --> Delete the user having the passed id.
-	 */
+	 *//*
 	@RequestMapping("/delete")
 	@ResponseBody
 	public String delete(long id) {
@@ -80,12 +83,12 @@ public class UserController {
 			return "Error deleting the user:" + ex.toString();
 		}
 		return "User succesfully deleted!";
-	}
+	}*/
 
 	/**
 	 * GET /get-by-email --> Return the id for the user having the passed email.
 	 */
-	@RequestMapping("/get-by-email")
+	/*@RequestMapping("/get-by-email")
 	@ResponseBody
 	public String getByEmail(String email) {
 		String userId = "";
@@ -96,7 +99,7 @@ public class UserController {
 			return "User not found";
 		}
 		return "The user id is: " + userId;
-	}
+	}*/
 
 	/**
 	 * GET /update --> Update the email and the name for the user in the
@@ -106,15 +109,9 @@ public class UserController {
 	@ResponseBody
 	public String updateUser(StoreUser user) {
 		try {
-			StoreUser userToFind = userDao.findByEmail(user.getEmail());
-			if(userToFind != null) {
-				userToFind.setUpdateDate(new Date(System.currentTimeMillis()));
-				userToFind.setFirstName(user.getFirstName());
-				userToFind.setLastName(user.getLastName());
-				userDao.save(userToFind);
-			}
+			userService.updateUser(user);
 		} catch (Exception ex) {
-			return "Error updating the user: " + ex.toString();
+			return "Error creating the user: " + ex.toString();
 		}
 		return "{\"message\":\"User successfully updated!\"}";
 	}
@@ -122,5 +119,5 @@ public class UserController {
 	// Private fields
 
 	@Autowired
-	private UserDao userDao;
+	private StoreUserService userService;
 }

@@ -3,39 +3,56 @@ var columnDefs = [ {
 	cellRenderer : buttonCellRendererFunc,
 	width : 100,
 	pinned : 'left'
-}, {
+}, 
+{
 	headerName : "Username",
 	field : "email",
 	editable : true
-}, {
+}, 
+{
 	headerName : "Password",
 	field : "password",
 	editable : true
-}, {
+},
+{
+	headerName : "Role",
+	field : "role",
+	editable : true,
+	cellEditor : "select",
+	cellEditorParams : {
+		values : [ 'ROLE_SUPER_ADMIN', 'ROLE_ADMIN', 'ROLE_USER' ]
+	}
+},
+{
 	headerName : "First name",
 	field : "firstName",
 	editable : true
-}, {
+}, 
+{
 	headerName : "Last name",
 	field : "lastName",
 	editable : true
-}, {
+}, 
+{
 	headerName : "Address",
 	field : "address",
 	editable : true
-}, {
+}, 
+{
 	headerName : "Telephone",
 	field : "telephone",
 	editable : true
-}, {
+}, 
+{
 	headerName : "Gender",
 	field : "gender",
 	editable : true,
 	cellEditor : "select",
 	cellEditorParams : {
-		    values: ['Male', 'Female']
-		}
-} ]
+		values : [ 'Male', 'Female' ]
+	}
+} 
+]
 
 var constant = {
 	gridOptions : {
