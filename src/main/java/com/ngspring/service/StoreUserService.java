@@ -61,10 +61,16 @@ public class StoreUserService {
 	
 	public void updateUser(StoreUser user) {
 		StoreUser userToFind = userDao.findByEmail(user.getEmail());
+		Set<StoreRole> roles = new HashSet<StoreRole>();
+		
 		if(userToFind != null) {
 			userToFind.setFirstName(user.getFirstName());
 			userToFind.setLastName(user.getLastName());
 			userToFind.setEmail(user.getEmail());
+			
+			StoreRole role = roleDao.findRoleByRole(user.getRole());
+			roles.add(role);
+			userToFind.setRoles(roles);
 			
 			/*BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			String hashedPassword = passwordEncoder.encode(user.getPassword());
