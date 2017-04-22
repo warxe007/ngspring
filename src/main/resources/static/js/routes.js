@@ -27,6 +27,11 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
                     controller: 'HeaderController',
                     controllerAs: 'HC'
                 },
+                'left-nav': {
+                	templateUrl: '/js/layout/leftSideNavigationBar.html',
+                    controller: 'LeftSideNavController',
+                    controllerAs: 'LSC'
+                },
                 'content': {
                     templateUrl: '/js/home/home.html'
                 },
