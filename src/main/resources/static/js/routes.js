@@ -4,7 +4,7 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
 
     $urlRouterProvider.rule(function ($injector, $location) {
         var path = $location.path();
-        // If no path is defined then re route the user to the home page. For now, product list.
+        // If no path is defined then re route the user to the home page.
         if (path === "" || path === "/") {
             $injector.invoke(['$state', function ($state) {
                 $state.transitionTo('app.home', {});
