@@ -5,8 +5,9 @@ angular.
 		'ngRoute', 
 		'auth', 
 		'layout', 
-		'products', 
+		'menu', 
 		'home', 
 		'navigation',
+		'principal',
 		'users'
 		]);

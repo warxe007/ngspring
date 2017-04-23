@@ -61,11 +61,31 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
             },
             views: {
                 'content@': {
-                    templateUrl: '/js/products/menu.html',
+                    templateUrl: '/js/menu/menu.html',
                     controller: 'MenuController',
                     controllerAs: 'MC'
                 }
             }
+        })
+        .state('app.principal', {
+            url: 'principal',
+            views: {
+                'content@': {
+                    templateUrl: '/js/principal/principal.html',
+                    controller: 'PrincipalController',
+                    controllerAs: 'PC'
+                }
+            }
+        })
+        .state('app.inventory', {
+        	url: 'inventory',
+        	views: {
+        		'content@': {
+        			templateUrl: '/js/inventory/inventory.html',
+        			controller: 'InventoryController',
+        			controllerAs: 'IC'
+        		}
+        	}
         })
         .state('app.users', {
             url: 'manage-users',
