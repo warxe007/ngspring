@@ -9,5 +9,6 @@ angular.
 		'home', 
 		'navigation',
 		'principal',
+		'inventory',
 		'users'
 		]);

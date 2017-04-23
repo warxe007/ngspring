@@ -1,6 +1,6 @@
 angular.module('users').controller('UsersController', UsersController);
 
-function UsersController($scope, users, usersService, storeConstants) {
+function UsersController(users, usersService, storeConstants) {
 	var vm = this;
 	
 	processUserRole(users);

@@ -79,6 +79,11 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
         })
         .state('app.inventory', {
         	url: 'inventory',
+        	resolve: {
+                products : function (inventoryService) {
+                    return inventoryService.getAllProducts();
+                }
+            },
         	views: {
         		'content@': {
         			templateUrl: '/js/inventory/inventory.html',

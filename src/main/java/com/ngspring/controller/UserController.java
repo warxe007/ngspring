@@ -111,7 +111,7 @@ public class UserController {
 		try {
 			userService.updateUser(user);
 		} catch (Exception ex) {
-			return "Error creating the user: " + ex.toString();
+			return "Error updating the user: " + ex.toString();
 		}
 		return "{\"message\":\"User successfully updated!\"}";
 	}

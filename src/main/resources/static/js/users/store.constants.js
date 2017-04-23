@@ -51,7 +51,7 @@ var columnDefs = [ {
 	cellEditorParams : {
 		values : [ 'Male', 'Female' ]
 	}
-} 
+}
 ]
 
 var constant = {

@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <div class="container">
-    <h1 class="page-header">Lista de Inventario</h1>
+    <h1 class="page-header">Lista de Inventario <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+    </h1>
+    <div style="padding: 15px">
+		<button ng-click="IC.addNewRow()" class="btn btn-default">Agregar Nuevo Producto</button>
+	</div>
+	<div ag-grid="IC.gridOptions" class="ag-blue" style="height: 300px;"></div>
 </div>
 </html>
