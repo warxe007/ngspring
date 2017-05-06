@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ngspring.dao.ProductDao;
 import com.ngspring.model.Product;
@@ -17,38 +18,43 @@ public class InventoryService {
 
 	@Autowired
 	ProductDao productDao;
-	
-	Product productToSave;
 
 	public ArrayList<Product> findAll() {
 		return (ArrayList<Product>) productDao.findAll();
 	}
 
+	@Transactional
 	public void saveProduct(Product product) {
 		Product productToSave = transferToDomain(product);
 		
 		productDao.save(productToSave);
 	}
 	
+	@Transactional
 	public void updateProduct(Product product) {
-		productToSave = productDao.findOne(product.getId());
-		productToSave = transferToDomain(product);
+		Product productToUpdate = productDao.findOne(product.getId());
+		productToUpdate = transferToDomain(product);
 		
-		if(productToSave != null) {
-			productDao.save(productToSave);
+		if(productToUpdate != null) {
+			productDao.save(productToUpdate);
 		}
 	}
 
 	private Product transferToDomain(Product product) {
-		productToSave = productToSave != null ? productToSave : new Product();
+		Product domain =  productDao.findOne(product.getId());
+		
+		if(domain == null) {
+			domain = new Product();
+		}
 
-		productToSave.setName(product.getName());
-		productToSave.setBarCode(product.getBarCode());
-		productToSave.setMeasurementUnit(product.getMeasurementUnit());
-		productToSave.setEntryCost(product.getEntryCost());
-		productToSave.setSaleCost(product.getSaleCost());
-		productToSave.setQuantity(product.getQuantity());
+		domain.setName(product.getName());
+		domain.setBarCode(product.getBarCode());
+		domain.setMeasurementUnit(product.getMeasurementUnit());
+		domain.setEntryCost(product.getEntryCost());
+		domain.setSaleCost(product.getSaleCost());
+		domain.setQuantity(product.getQuantity());
+		domain.setDescription(product.getDescription());
 
-		return productToSave;
+		return domain;
 	}
 }

@@ -1,11 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <div class="container">
-    <h1 class="page-header">Lista de Inventario <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
-    </h1>
-    <div style="padding: 15px">
-		<button ng-click="IC.addNewRow()" class="btn btn-default">Agregar Nuevo Producto</button>
-	</div>
+	<h1 class="page-header">
+		Lista de Inventario <span class="glyphicon glyphicon-globe"
+			aria-hidden="true"></span>
+	</h1>
+	<div class="row">
+		<div class="col-sm-3" style="margin-top: 25px">
+			<input id="searchProductText" placeholder="Buscar Inventario..." autofocus 
+				ng-change="IC.filterProducts()" ng-model="IC.searchProductValue"
+				class="form-control"></input>
+		</div>
+		<div class="col-sm-2">
+			<label>Campos:</label>
+			<select id="filterProductSelect" class="form-control"
+				ng-model="IC.selectedFilter"
+				ng-init="IC.selectedFilter = IC.selectedFilter || IC.fields[0].value"
+				ng-options="field.value as field.name for field in IC.fields">
+			</select>
+		</div>
+		<div class="col-sm-2">
+			<label>Categoria:</label>
+			<select id="categoryProductSelect" class="form-control"
+				ng-model="IC.selectedCategory"
+				ng-init="IC.selectedCategory = IC.selectedCategory || IC.categories[0].name"
+				ng-options="category.name as category.name for category in IC.categories">
+			</select>
+		</div>
+		<div class="col-sm-2" style="margin-top: 25px">
+			<button type="button" ng-click="IC.searchProducts()" class="btn btn-primary">Buscar</button>
+		</div>
+		<div class="col-sm-2" style="margin-top: 25px; float: right">
+			<button type="button" ng-click="IC.addNewRow()" class="btn btn-success">Agregar Nuevo Producto</button>
+		</div>
+	</div><br>
 	<div ag-grid="IC.gridOptions" class="ag-blue" style="height: 300px;"></div>
 </div>
 </html>

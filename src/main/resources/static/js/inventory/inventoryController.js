@@ -2,15 +2,38 @@ angular
 	.module('inventory')
 	.controller('InventoryController', InventoryController);
 
-function InventoryController(products, storeInventoryConstants, inventoryService) {
+function InventoryController($scope, products, storeInventoryConstants, inventoryService, categories) {
 	var vm = this;
 	
-	vm.addNewRow = addNewRow,	
-	vm.createProduct = createProduct,
-	vm.cancelProductCreate = cancelProductCreate,
-	vm.editProduct = editProduct,
-	vm.gridOptions = storeInventoryConstants.gridOptions,
-	vm.gridOptions.rowData = products;
+	function init() {
+		vm.addNewRow = addNewRow;
+		vm.createProduct = createProduct;
+		vm.cancelProductCreate = cancelProductCreate;
+		vm.editProduct = editProduct;
+		vm.gridOptions = storeInventoryConstants.gridOptions;
+		vm.gridOptions.rowData = products;
+		vm.fields = storeInventoryConstants.fields;
+		vm.categories = categories;
+		vm.categories.unshift({
+			id: 0,
+			name: 'todas',
+			description: 'todas'
+		});
+		vm.filterProducts = filterProducts;
+		vm.searchProducts = searchProducts;
+		
+		vm.gridOptions.onCellValueChanged = function(event) {
+			if(!angular.isUndefined(event.oldValue) && event.newValue != event.oldValue) {
+				var nodes = [event.node];
+				
+				event.data.dirty = true;
+				vm.gridOptions.api.refreshRows(nodes);
+			} else {
+				event.data.dirty = false;
+				vm.gridOptions.api.refreshRows(nodes);
+			}
+		}
+	}
 
 	function addNewRow() {
 		vm.gridOptions.api.insertItemsAtIndex(0, [ {newRow: true} ]);
@@ -23,6 +46,7 @@ function InventoryController(products, storeInventoryConstants, inventoryService
 	
 	function createProduct(row) {
 		inventoryService.saveNewProduct(row).then(function(success) {
+			row.newRow = false;
 			console.log(success.message);
 		}, function(error) {
 			console.log(error);
@@ -31,6 +55,7 @@ function InventoryController(products, storeInventoryConstants, inventoryService
 	
 	function editProduct(row) {
 		inventoryService.updateProduct(row).then(function(success) {
+			row.dirty = false;
 			console.log(success.message);
 		}, function (error) {
 			console.log(error);
@@ -40,4 +65,14 @@ function InventoryController(products, storeInventoryConstants, inventoryService
 	function cancelProductCreate(node) {
 		vm.gridOptions.api.removeItems([ node ]);
 	}
+	
+	function filterProducts() {
+		vm.gridOptions.api.setQuickFilter(vm.searchProductValue);
+	}
+	
+	function searchProducts() {
+		console.log(vm.selectedFilter);
+	}
+	
+	init();
 }

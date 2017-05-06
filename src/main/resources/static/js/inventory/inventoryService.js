@@ -4,7 +4,8 @@ function inventoryService($q, $http) {
 	var factory = {
 		getAllProducts : getAllProducts,
 		saveNewProduct : saveNewProduct,
-		updateProduct : updateProduct
+		updateProduct : updateProduct,
+		getAllCategories: getAllCategories
 	};
 
 	return factory;
@@ -64,6 +65,26 @@ function inventoryService($q, $http) {
 
 		$http(req).success(function(data) {
 			deferred.resolve(data);
+		}).error(function(data) {
+			deferred.reject(data);
+		});
+
+		return deferred.promise;
+	}
+	
+	function getAllCategories() {
+		var deferred = $q.defer();
+
+		var req = {
+			method : 'GET',
+			url : '/get-all-categories',
+			headers : {
+				'Content-Type' : 'application/json'
+			}
+		};
+
+		$http(req).success(function(data) {
+			deferred.resolve(data.categories);
 		}).error(function(data) {
 			deferred.reject(data);
 		});

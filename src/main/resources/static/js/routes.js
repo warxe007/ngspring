@@ -82,6 +82,9 @@ function routes($stateProvider, $urlRouterProvider, $locationProvider, $httpProv
         	resolve: {
                 products : function (inventoryService) {
                     return inventoryService.getAllProducts();
+                },
+                categories: function (inventoryService) {
+                	return inventoryService.getAllCategories();
                 }
             },
         	views: {

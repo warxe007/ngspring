@@ -1,5 +1,6 @@
 package com.ngspring.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +16,7 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	@Column(name="barCode", unique=true)
 	@NotNull
 	private String barCode;
 	
@@ -32,6 +34,8 @@ public class Product {
 	
 	@NotNull
 	private Integer quantity;
+	
+	private String description;
 
 	public long getId() {
 		return id;
@@ -87,5 +91,13 @@ public class Product {
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }
