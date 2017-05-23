@@ -21,6 +21,7 @@ function InventoryController($scope, products, storeInventoryConstants, inventor
 		});
 		vm.filterProducts = filterProducts;
 		vm.searchProducts = searchProducts;
+		vm.deleteMultipleProducts = deleteMultipleProducts;
 		
 		vm.gridOptions.onCellValueChanged = function(event) {
 			if(!angular.isUndefined(event.oldValue) && event.newValue != event.oldValue) {
@@ -32,6 +33,12 @@ function InventoryController($scope, products, storeInventoryConstants, inventor
 				event.data.dirty = false;
 				vm.gridOptions.api.refreshRows(nodes);
 			}
+		}
+		
+		vm.gridOptions.onSelectionChanged = function(event) {
+			$scope.$apply(function () {
+				vm.selectedRows = vm.gridOptions.api.getSelectedRows();
+			});
 		}
 	}
 
@@ -72,6 +79,12 @@ function InventoryController($scope, products, storeInventoryConstants, inventor
 	
 	function searchProducts() {
 		console.log(vm.selectedFilter);
+	}
+	
+	function deleteMultipleProducts() {
+		angular.forEach(vm.gridOptions.api.getSelectedRows(), function(currentSelectedRow) {
+			console.log(currentSelectedRow.name);
+		});
 	}
 	
 	init();

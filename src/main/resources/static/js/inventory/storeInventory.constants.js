@@ -60,7 +60,8 @@ var constant = {
 		rowHeight : 40,
 		singleClickEdit : true,
 		animateRows: true,
-		enableColResize: true
+		enableColResize: true,
+		rowSelection: 'multiple'
 	},
 	fields : [
 		{

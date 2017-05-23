@@ -6,7 +6,7 @@
 			aria-hidden="true"></span>
 	</h1>
 	<div class="row">
-		<div class="col-sm-3" style="margin-top: 25px">
+		<div class="col-sm-2" style="margin-top: 25px">
 			<input id="searchProductText" placeholder="Buscar Inventario..." autofocus 
 				ng-change="IC.filterProducts()" ng-model="IC.searchProductValue"
 				class="form-control"></input>
@@ -27,8 +27,11 @@
 				ng-options="category.name as category.name for category in IC.categories">
 			</select>
 		</div>
-		<div class="col-sm-2" style="margin-top: 25px">
+		<div class="col-sm-1" style="margin-top: 25px">
 			<button type="button" ng-click="IC.searchProducts()" class="btn btn-primary">Buscar</button>
+		</div>
+		<div class="col-sm-2" style="margin-top: 25px">
+			<button ng-show="IC.selectedRows.length > 1" type="button" ng-click="IC.deleteMultipleProducts()" class="btn btn-danger">Eliminar Seleccionados</button>
 		</div>
 		<div class="col-sm-2" style="margin-top: 25px; float: right">
 			<button type="button" ng-click="IC.addNewRow()" class="btn btn-success">Agregar Nuevo Producto</button>
