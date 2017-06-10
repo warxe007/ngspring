@@ -56,7 +56,7 @@ public class InventoryController {
 		try {
 			inventoryService.updateProduct(product);
 		} catch (Exception e) {
-			
+			return "Error updating the product: " + e.toString();
 		}
 		return "{\"message\":\"Product successfully updated!\"}";
 	}

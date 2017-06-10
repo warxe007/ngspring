@@ -10,5 +10,6 @@ angular.
 		'navigation',
 		'principal',
 		'inventory',
-		'users'
+		'users',
+		'toaster'
 		]);

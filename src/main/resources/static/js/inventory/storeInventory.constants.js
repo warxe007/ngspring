@@ -1,9 +1,15 @@
-var columnDefs = [ {
+var columnDefs = [
+{
 	headerName : "",
 	cellRenderer : buttonCellRendererFunc,
 	width : 100,
-	pinned : 'left'
+	pinned : 'left',
 }, 
+{
+	headerName : "",
+	checkboxSelection: true,
+	width : 50
+},
 {
 	headerName : "Id",
 	width: 80,
@@ -61,7 +67,8 @@ var constant = {
 		singleClickEdit : true,
 		animateRows: true,
 		enableColResize: true,
-		rowSelection: 'multiple'
+		rowSelection: 'multiple',
+		suppressRowClickSelection: true
 	},
 	fields : [
 		{

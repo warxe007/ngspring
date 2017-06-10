@@ -2,7 +2,7 @@ angular
 	.module('inventory')
 	.controller('InventoryController', InventoryController);
 
-function InventoryController($scope, products, storeInventoryConstants, inventoryService, categories) {
+function InventoryController($scope, products, storeInventoryConstants, inventoryService, categories, toasterService) {
 	var vm = this;
 	
 	function init() {
@@ -43,8 +43,9 @@ function InventoryController($scope, products, storeInventoryConstants, inventor
 	}
 
 	function addNewRow() {
+		vm.isBlankRowPresent = true;
 		vm.gridOptions.api.insertItemsAtIndex(0, [ {newRow: true} ]);
-		vm.gridOptions.api.setFocusedCell(2, 'barCode');
+		vm.gridOptions.api.setFocusedCell(0, 'barCode');
 		vm.gridOptions.api.startEditingCell({
 			rowIndex : 0,
 			colKey : 'barCode'
@@ -54,22 +55,24 @@ function InventoryController($scope, products, storeInventoryConstants, inventor
 	function createProduct(row) {
 		inventoryService.saveNewProduct(row).then(function(success) {
 			row.newRow = false;
-			console.log(success.message);
+			vm.isBlankRowPresent = false;
+			toasterService.success(success.message);
 		}, function(error) {
-			console.log(error);
+			toasterService.error(error);
 		});
 	}
 	
 	function editProduct(row) {
 		inventoryService.updateProduct(row).then(function(success) {
 			row.dirty = false;
-			console.log(success.message);
+			toasterService.success(success.message);
 		}, function (error) {
-			console.log(error);
+			toasterService.error(error);
 		});
 	}
 
 	function cancelProductCreate(node) {
+		vm.isBlankRowPresent = false;
 		vm.gridOptions.api.removeItems([ node ]);
 	}
 	

@@ -7,6 +7,10 @@
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important;
 }
+.ag-selection-checkbox {
+	float: right !important;
+    margin: 5px 15px !important;
+}
 </style>
 </head>
 
@@ -16,12 +20,16 @@
 	
 	<div ui-view="left-nav" class=""></div>
 	
+	<toaster-container toaster-options="{'time-out': 0, 'position-class': 'toast-top-center'}"></toaster-container>
+	
 	<div ui-view="content" id="content" role="main"></div>
 	
 	<div ui-view="footer" class="footer" role="contentinfo"></div>
   
+
 	<script src="js/angular-bootstrap.js" type="text/javascript"></script>
 	<script src="js/ngspring.js"></script>
+	<script src="js/helpers/toasterService.js"></script>
 	<script src="js/routes.js"></script>
 	<script src="js/auth/auth.js"></script>
 	<script src="js/auth/loginService.js"></script>
