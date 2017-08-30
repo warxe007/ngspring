@@ -13,19 +13,19 @@ function toasterService(toaster) {
 	return factory;
 	
 	function success(text) {
-		toaster.pop('success', text);
+		toaster.pop({type: 'success', body: text, timeout: 3000, showCloseButton: false});
 	}
 	
 	function error(text) {
-		toaster.pop('success', text);
+		toaster.pop({type: 'error', body: text, showCloseButton: true});
 	}
 	
 	function warning(text) {
-		toaster.pop('warning', text);
+		toaster.pop({type: 'warning', body: text, showCloseButton: true});
 	}
 	
 	function info(text) {
-		toaster.pop('info', text);
+		toaster.pop({type: 'info', body: text, showCloseButton: true});
 	}
 	
 }

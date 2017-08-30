@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top" style="width: 100%">
+ <nav class="navbar navbar-default navbar-fixed-top" style="width: 100%">
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
@@ -9,42 +9,41 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">App</a>
+			<a class="navbar-brand" href="#">Un Negocio</a>
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href>Order today<span class="sr-only">(current)</span></a></li>
+				<li><a href>Ordena ahora<span class="sr-only">(current)</span></a></li>
 				<li><a ui-sref="app.menu">Menu</a></li>
 				<li ng-if="HC.loggedUser.isSuperAdmin" class="dropdown"><a
 					class="dropdown-toggle" data-toggle="dropdown" role="button"
-					aria-haspopup="true" aria-expanded="false">Manage <span
+					aria-haspopup="true" aria-expanded="false">Administrar <span
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a ui-sref="app.productList">Manage Products</a></li>
-						<li><a>Discounts</a></li>
-						<li><a>Statistics</a></li>
+						<li><a ui-sref="app.productList">Administrar Productos</a></li>
+						<li><a>Descuentos</a></li>
+						<li><a>Estadisticas</a></li>
 						<li role="separator" class="divider"></li>
-						<li><a ui-sref="app.users">Manage users</a></li>
+						<li><a ui-sref="app.users">Administrar Usuarios</a></li>
 					</ul></li>
 			</ul>
 			<form class="navbar-form navbar-left" role="search">
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="Search">
 				</div>
-				<button type="submit" class="btn btn-default">Search</button>
+				<button type="submit" class="btn btn-default">Buscar</button>
 			</form>
 			<ul class="nav navbar-nav navbar-right">
 				<div ng-if="!HC.loggedUser.isAnonymous">
 					<p class="navbar-text">
-						Welcome Back <b>{{HC.loggedUser.username}}!</b>
+						Bienvenido, <b>{{HC.loggedUser.username}}!</b>
 					</p>
 					<a ng-click="HC.logout()" class="navbar-logout">Logout</a>
 				</div>
-				<li ng-if="HC.loggedUser.isAnonymous"><p class="navbar-text">Already
-						have an account?</p></li>
+				<li ng-if="HC.loggedUser.isAnonymous"><p class="navbar-text">¿Ya tienes una cuenta?</p></li>
 				<li ng-if="HC.loggedUser.isAnonymous" class="dropdown"><a
 					class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span
 						class="caret"></span></a>
